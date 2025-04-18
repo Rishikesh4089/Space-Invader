@@ -1,26 +1,42 @@
 import math
 import pygame
+import os
+import sys
 import random
 from pygame import mixer
+
+# File Locating
+def resource_path(relative_path):
+    """Get the absolute path to a resource, works for both development and bundled executables."""
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".") 
+    
+    return os.path.join(base_path, relative_path)
 
 # Initialize pygame
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
 
 # Background
-background = pygame.image.load('assets/background.png')
+background_image_path = resource_path("assets/background.png")
+background = pygame.image.load(background_image_path)
 
 # Background music
-mixer.music.load('sound-effects/background.wav')
+background_music = resource_path("sound-effects/background.wav")
+mixer.music.load(background_music)
 mixer.music.play(-1)
 
 # Title and icon
 pygame.display.set_caption("Space Invaders")
-icon = pygame.image.load("assets/spaceship.png")
+icon_path = resource_path("assets/spaceship.png")
+icon = pygame.image.load(icon_path)
 pygame.display.set_icon(icon)
 
 # Player
-playerImg = pygame.image.load('assets/player1.png')
+playerImg_path = resource_path("assets/player1.png")
+playerImg = pygame.image.load(playerImg_path)
 playerX = 370
 playerY = 480
 playerX_change = 0
@@ -32,6 +48,7 @@ enemyY = []
 enemyX_change = []
 enemyY_change = []
 num_of_enemies = 5
+enemyImg_path = resource_path("assets/enemy.png")
 
 def reset_enemies():
     enemyImg.clear()
@@ -40,7 +57,7 @@ def reset_enemies():
     enemyX_change.clear()
     enemyY_change.clear()
     for i in range(num_of_enemies):
-        enemyImg.append(pygame.image.load("assets/enemy.png"))
+        enemyImg.append(pygame.image.load(enemyImg_path))
         enemyX.append(random.randint(0, 735))
         enemyY.append(random.randint(50, 150))
         enemyX_change.append(4)
@@ -49,7 +66,8 @@ def reset_enemies():
 reset_enemies()
 
 # Bullet
-bulletImg = pygame.image.load("assets/bullet.png")
+bullet_image_path = resource_path("assets/bullet.png")
+bulletImg = pygame.image.load(bullet_image_path)
 bulletX = 0
 bulletY = 480
 bulletX_change = 0
@@ -103,6 +121,8 @@ def reset_game():
     is_game_over = False
     reset_enemies()
 
+laser_path = resource_path("sound-effects/laser.wav")
+explosion_path = resource_path("sound-effects/explosion.wav")
 # Game loop
 running = True
 while running:
@@ -122,7 +142,7 @@ while running:
                 if event.key == pygame.K_RIGHT:
                     playerX_change = 6
                 if event.key == pygame.K_UP and bullet_state == "ready":
-                    bullet_sound = mixer.Sound('sound-effects/laser.wav')
+                    bullet_sound = mixer.Sound(laser_path)
                     bullet_sound.play()
                     bulletX = playerX
                     fire_bullet(bulletX, bulletY)
@@ -158,7 +178,7 @@ while running:
 
             collision = isCollision(enemyX[i], enemyY[i], bulletX, bulletY)
             if collision:
-                explosion_Sound = mixer.Sound("sound-effects/explosion.wav")
+                explosion_Sound = mixer.Sound(explosion_path)
                 explosion_Sound.play()
                 bulletY = 480
                 bullet_state = "ready"
