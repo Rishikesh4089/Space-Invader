@@ -67,7 +67,8 @@ pip install pygame
 ## 🎮 Controls
 
 - **← / → Arrow Keys**: Move left and right
-- **Spacebar**: Shoot bullets
+- **↑ Arrow Key**: Shoot bullets
+- **R**: Quit the game
 - **ESC**: Quit the game
 
 ---
@@ -98,7 +99,8 @@ This project is inspired by the classic *Space Invaders* arcade game. It helps r
 ```
 Space-Invader/
 │
-├── assets/             # Images, icons, and sound effects
+├── assets/             # Images and icons
+├── sound-effects/      # Sound effects
 ├── main.py             # Game entry point
 ├── README.md           # Project description file
 └── ...
@@ -106,22 +108,11 @@ Space-Invader/
 
 ---
 
-## 🌟 Future Improvements
-
-- 🔄 Multiple levels or increasing difficulty
-- 💥 Power-ups and health bars
-- 🧠 Smarter enemy AI
-- 🏆 High score persistence
-- 🎨 Better UI/UX and transition screens
-
----
-
 ## 📜 License
 
-This project is open-source and available under the [MIT License](LICENSE).
+This project is open-source and available under the [GNU General Public License v3.0](LICENSE).
 
 ---
 
 ### 🙌 Made with love by [Rishikesh](https://github.com/Rishikesh4089)
-```
 

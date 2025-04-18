@@ -113,8 +113,10 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-        if not is_game_over:
-            if event.type == pygame.KEYDOWN:
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                running = False
+            if not is_game_over:
                 if event.key == pygame.K_LEFT:
                     playerX_change = -6
                 if event.key == pygame.K_RIGHT:
@@ -124,12 +126,13 @@ while running:
                     bullet_sound.play()
                     bulletX = playerX
                     fire_bullet(bulletX, bulletY)
-            if event.type == pygame.KEYUP:
-                if event.key in [pygame.K_LEFT, pygame.K_RIGHT]:
-                    playerX_change = 0
-        else:
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_r:
-                reset_game()
+            else:
+                if event.key == pygame.K_r:
+                    reset_game()
+
+        if event.type == pygame.KEYUP and not is_game_over:
+            if event.key in [pygame.K_LEFT, pygame.K_RIGHT]:
+                playerX_change = 0
 
     if not is_game_over:
         playerX += playerX_change
@@ -179,3 +182,4 @@ while running:
         game_over()
 
     pygame.display.update()
+
